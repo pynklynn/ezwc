@@ -24,5 +24,8 @@
   "homepage": "https://github.com/pynklynn/ezwc#readme",
   "devDependencies": {
     "eslint": "^5.16.0"
+  },
+  "dependencies": {
+    "jsdom": "^14.0.0"
   }
 }
