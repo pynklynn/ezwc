@@ -1,21 +1,25 @@
 #!/usr/bin/env node
 
 const meow = require('meow');
-const chalk = require('chalk');
+const Logger = require('./lib/utils/logger');
 const ezwcCore = require('./lib/ezwc');
 
 const cli = meow(`
 Usage
-  $ ezwc <in file> --out=<out file>
+  $ ezwc --in=<in file> --out=<out file>
 
 Options
+  --in, -i Input file
   --out, -o Output file
 
 Examples
   $ ezwc my-component.ezwc -o=my-component.js
 `,{
-  input: ['inFile'],
   flags: {
+    in: {
+      type: 'string',
+      alias: 'i'
+    },
     out: {
       type: 'string',
       alias: 'o'
@@ -23,17 +27,17 @@ Examples
   }
 });
 
-// make sure there is a file
-if (cli.input.length < 1) {
-  console.log(chalk`{bold.bgRed  Error } {red An input file must be specified.}`);
+// make sure there is an input file
+if (!cli.flags.in) {
+  Logger.error('An input file must be specified.');
   process.exit(1);
 }
 
 // make sure it's a .ezwc file
-const inFilePath = cli.input[0];
+const inFilePath = cli.flags.in;
 const inFileMatches = /(?<inFile>.*)\.ezwc$/gi.exec(inFilePath);
 if (!inFileMatches) {
-  console.log(chalk`{bold.bgRed  Error } {red An input file must be specified.}`);
+  Logger.error('Input file should be a %s file.', '.ezwc')
   process.exit(1);
 }
 
