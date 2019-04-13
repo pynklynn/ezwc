@@ -22,13 +22,13 @@ $ ezwc --in=path/to/component.ezwc --out=path/to/output.js
 
 Web components are the future of front-end web development. Luckily, the future is (mostly) now!
 
-Web components are a great technology to have built into standards. Then enable easy creation of a single, re-usable unit of code that doesn't require any libraries to run‡.
+Web components are a great technology to have built into standards. They enable easy creation of a single, re-usable unit of code that doesn't require any libraries to run‡.
 
 That being said, they may not always be the prettiest to write. [Vue](https://vuejs.org/) offers the ability to create a [single file component](https://vuejs.org/v2/guide/single-file-components.html) split into three, easy to read and write sections. The ezwc (short for easy web components) format is inspired by the Vue single file component design and tailored for native web components.
 
 Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your web component comes out!
 
-## Options
+## CLI Options
 
 `--in, -i` - Path to input .ezwc file
 
@@ -87,13 +87,13 @@ class MyComponent extends HTMLElement {
 </style>
 ```
 
-Every component must have at least a template tag definig the layout and a script tag defining the code. The style tag is option.
+Every component must have at least a template tag definig the layout and a script tag defining the code. The style tag is optional.
 
 A few things to remember when writing a .ezwc file:
 
 * The script tag has a required attribute `selector` which defines the selector used when creating the element in the browser (must follow the HTML web component spec naming requirements)
 * The `customElement.define()` code is automatically generated for you - it uses the `selector` attribute mentioned above and parses the classname from the code
-* The JavaScript code should be ES2015+ class format - not only helps with readability but it's time!
+* The JavaScript code should be ES2015+ class format so that the transpiler can determine the class use when generating the `customElement.define()` code.
 
 ### Using the transpiled web component in your code
 
