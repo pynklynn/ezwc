@@ -13,7 +13,7 @@ Node 10 or higher is required.
 To get started, install the CLI globally:
 
 ```shell
-$ npm install -g @ezwc/cli
+$ npm install -g ezwc-cli
 ```
 
 To transpile a .ezwc file to a web component, run:
