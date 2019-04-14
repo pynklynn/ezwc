@@ -1,10 +1,14 @@
 # ezwc
 
-Easily convert web components written similar to Vue single file components into native web components
+[![Build Status](https://travis-ci.org/pynklynn/ezwc.svg?branch=master)](https://travis-ci.org/pynklynn/ezwc)
+
+Easily convert web components written similar to Vue single file components into native web components.
 
 **_Warning: this project is still in very early stages and not ready for production use (but bug reports are welcome!)._**
 
 ## Getting started
+
+Node 10 or higher is required.
 
 To get started, install the CLI globally:
 
