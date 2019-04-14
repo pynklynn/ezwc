@@ -1,0 +1,9 @@
+sudo: required
+dist: bionic
+language: node_js
+node_js:
+  - "node"
+  - "8"
+  - "9"
+  - "10"
+  - "11"
