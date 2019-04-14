@@ -15,7 +15,7 @@ $ npm install -g @ezwc/cli
 To transpile a .ezwc file to a web component, run:
 
 ```shell
-$ ezwc --in=path/to/component.ezwc --out=path/to/output.js
+$ ezwc --in path/to/component.ezwc --out path/to/output.js
 ```
 
 ## About ezwc
