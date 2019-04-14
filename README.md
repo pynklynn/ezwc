@@ -36,7 +36,7 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 `--in, -i` - Path to input .ezwc file
 
-`--out, -o` - Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension
+`--out, -o` - Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
 
 ## Example file structure
 

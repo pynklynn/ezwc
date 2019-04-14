@@ -2,15 +2,15 @@
 
 const meow = require('meow');
 const Logger = require('./lib/utils/logger');
-const ezwcCore = require('./lib/ezwc');
+const EzwcCore = require('./lib/ezwc');
 
 const cli = meow(`
 Usage
-  $ ezwc --in=<in file> --out=<out file>
+  $ ezwc --in=<in file> --out=<out file/directory>
 
 Options
   --in, -i Input file
-  --out, -o Output file
+  --out, -o Output file or directoy
 
 Examples
   $ ezwc my-component.ezwc -o=my-component.js
@@ -41,5 +41,4 @@ if (!inFileMatches) {
   process.exit(1);
 }
 
-const outFilePath = cli.flags.out || inFilePath.replace(/\.ezwc$/i, '.js');
-ezwcCore(inFilePath, outFilePath);
+EzwcCore.process(inFilePath, cli.flags.out);
