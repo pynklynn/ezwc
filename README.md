@@ -114,7 +114,6 @@ Include the output JavaScript file in your code using your build tool chain. The
 * JavaScript transpiled language support (TypeScript)
 * Style pre-processor support
 * All files and subfiles under a directory as input
-* Directory output
 * .ezwc.config.js file for easy project configuration
 
 ## Footnotes
