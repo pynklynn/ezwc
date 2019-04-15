@@ -91,7 +91,7 @@ class MyComponent extends HTMLElement {
 </style>
 ```
 
-Every component must have at least a template tag definig the layout and a script tag defining the code. The style tag is optional.
+Every component must have at least a template tag defining the layout and a script tag defining the code. The style tag is optional. There is the option to add `src` attribute to each tag pointing to a source code file that will be imported and transpiled into the final component file instead of writing inline if the developer chooses.
 
 A few things to remember when writing a .ezwc file:
 
@@ -109,7 +109,6 @@ Include the output JavaScript file in your code using your build tool chain. The
 
 ## Future plans
 
-* Split files (template, script, style) imported into an .ezwc file
 * Template engine support
 * JavaScript transpiled language support (TypeScript)
 * Style pre-processor support
