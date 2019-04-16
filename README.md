@@ -4,11 +4,11 @@
 
 Easily convert web components written similar to Vue single file components into native web components.
 
-**Note: This project is still in very early stages so use it with caution. If you find a problem, please report it._**
+**_Note: This project is still in the early stages of development so use it with caution. If you find a problem or want to see a feature request not in the list below, please open an issue._**
 
 ## Getting started
 
-Node 10 or higher is required.
+**Node 10 or higher is required.**
 
 To get started, install the CLI globally:
 
@@ -46,17 +46,19 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 ## CLI Options
 
-`--in, -i` - Path to input .ezwc file or directory to search for .ezwc files in and it's subdirectories
+`--in, -i` - (required) Path to input .ezwc file or directory to search for .ezwc files in and it's subdirectories
 
-`--out, -o` - Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
+`--out, -o` - (optional) Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
+
+`--watch, -w` - (optional) Watch for file changes from the input file/directory
 
 ## Example file structures
 
-### Example of inline code
-
-The code can be either inlined in the file or imported through adding an `src` attribute pointing to the source file. If using the `src` attribute, the imported code will be transpiled into the final `.js` output file.
+The code can be either inlined in the file or imported through adding an `src` attribute pointing to the source file. If using the `src` attribute, the imported code will be transpiled into the final `.js` output file. Both ways can be mixed and matched.
 
 Every component must have at least a template tag defining the layout and a script tag defining the code. The style tag is optional.
+
+### Example of inline code
 
 ```html
 <template>
@@ -109,7 +111,7 @@ class MyComponent extends HTMLElement {
 </style>
 ```
 
-### Example of imports
+### Example using imports
 
 ```html
 <template src="path/to/template.html"></template>
@@ -133,11 +135,10 @@ Include the output JavaScript file in your code using your build tool chain or d
 
 ## Future plans
 
+* .ezwc.config.js file for easy project configuration
+* Style pre-processor support
 * Template engine support
 * JavaScript transpiled language support (TypeScript)
-* Style pre-processor support
-* .ezwc.config.js file for easy project configuration
-* Watch option for file changes
 
 ## Footnotes
 

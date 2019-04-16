@@ -6,16 +6,18 @@ const EzwcCore = require('./lib/ezwc');
 
 const cli = meow(`
 Usage
-  $ ezwc -i <in file/directory> -o <out file/directory>
+  $ ezwc -i <in file/directory> -o <out file/directory> -w
 
 Options
-  --in, -i Input file or directory
-  --out, -o Output file or directoy
+  --in, -i (required) Input file or directory
+  --out, -o (optional) Output file or directoy
+  --watch, -w (optional) Watch for changes to input file or directory
 
 Examples
   $ ezwc -i my-component.ezwc -o my-component.js
   $ ezwc -i path/to/process -o dist
-`,{
+  $ ezwc -i path/to/process -w
+`, {
   flags: {
     in: {
       type: 'string',
@@ -24,6 +26,10 @@ Examples
     out: {
       type: 'string',
       alias: 'o'
+    },
+    watch: {
+      type: 'boolean',
+      alias: 'w'
     }
   }
 });
@@ -36,4 +42,4 @@ if (!cli.flags.in) {
 
 const inFilePath = cli.flags.in;
 
-EzwcCore.process(inFilePath, cli.flags.out);
+EzwcCore.process(inFilePath, cli.flags.out, cli.flags.watch);
