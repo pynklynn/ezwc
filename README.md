@@ -1,6 +1,7 @@
 # ezwc
 
 [![Build Status](https://travis-ci.org/pynklynn/ezwc.svg?branch=master)](https://travis-ci.org/pynklynn/ezwc)
+[![NPM Version](https://img.shields.io/npm/v/ezwc-cli.svg)](https://img.shields.io/npm/v/ezwc-cli.svg)
 
 Easily convert web components written similar to Vue single file components into native web components.
 
@@ -46,11 +47,28 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 ## CLI Options
 
+
 `--in, -i` - (required) Path to input .ezwc file or directory to search for .ezwc files in and it's subdirectories
 
 `--out, -o` - (optional) Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
 
 `--watch, -w` - (optional) Watch for file changes from the input file/directory
+
+`--config, -c` - (optional) Path to config file (if not using the standard file and location)
+
+### Config file
+
+If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
+
+Example config file:
+
+```js
+module.exports = {
+  in: './path/to/input',
+  out: 'dist',
+  watch: true
+};
+```
 
 ## Example file structures
 
@@ -135,7 +153,6 @@ Include the output JavaScript file in your code using your build tool chain or d
 
 ## Future plans
 
-* .ezwc.config.js file for easy project configuration
 * Style pre-processor support
 * Template engine support
 * JavaScript transpiled language support (TypeScript)
