@@ -59,3 +59,11 @@ typings/
 
 # next.js build output
 .next
+
+# test files
+.ezwc.confg.js
+test.component.ezwc
+test.component.js
+test-components/
+dist
+index.html
