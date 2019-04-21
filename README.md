@@ -143,7 +143,11 @@ class MyComponent extends HTMLElement {
 * The `customElement.define()` code is automatically generated for you - it uses the `selector` attribute mentioned above and parses the classname from the code
 * The JavaScript code should be ES2015+ class format so that the transpiler can determine the class use when generating the `customElement.define()` code.
 
-### Style preprocessor support
+### Prprocessor support
+
+EZWC support some proprocessors for the templates (coming soon), script, and styles.
+
+#### Style preprocessor support
 
 EZWC supports some preprocessors. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your style tag:
 
@@ -161,6 +165,20 @@ Currently supported preprocessors:
 
 * Sass (scss format only due to node-sass support) - `lang="scss"`
 
+#### Script proprocessor support
+
+EZWC supports writing the script code in Typescript. In order to use the proprocessor (both for inline and imported files), add the `lang` attribute to your script tag with the value of either `ts` or `typescript`.
+
+```html
+<!-- inline -->
+<script lang="ts">
+  // TS Code
+</script>
+
+<!-- imported -->
+<script lang="typescript" src="path/to/script.ts"></script>
+```
+
 ## Using the transpiled web component in your code
 
 Include the output JavaScript file in your code using your build tool chain or directly. Then reference your new component just like any other web component (because now it is!):
@@ -172,7 +190,6 @@ Include the output JavaScript file in your code using your build tool chain or d
 ## Future plans
 
 * Style pre-processor support for LESS and Stylus
-* JavaScript transpiled language support (TypeScript)
 * Template engine support for Pug, Handlebars, Lit HTML, EJS
 
 ## Footnotes
