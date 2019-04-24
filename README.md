@@ -196,6 +196,9 @@ EZWC supports some template engines. In order to use the preprocessor (both for 
 Currently supported template engines:
 
 * Lit HTML - `lang="lit"` or `lang="lit-html"`
+* Pug - `lang-"pug"`
+* Handlebars - `lang="hbs"` or `lang="handlebars"`
+* EJS - `lang="ejs"`
 
 When using a template engine, the engine import statement will be put at the top of the output component script. Ensure that the consuming application has the appropriate engine added to its `package.json` file and that the build tool chain is capable of supporting the engine.
 
@@ -210,7 +213,7 @@ Include the output JavaScript file in your code using your build tool chain or d
 ## Future plans
 
 * Style pre-processor support for LESS and Stylus
-* Template engine support for Pug, Handlebars, Lit HTML, EJS
+* `create` action for the CLI to create a new ezwc file
 
 ## Footnotes
 
