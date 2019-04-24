@@ -149,7 +149,7 @@ EZWC support some proprocessors for the templates (coming soon), script, and sty
 
 #### Style preprocessor support
 
-EZWC supports some preprocessors. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your style tag:
+EZWC supports some style preprocessors. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your style tag:
 
 ```html
 <!-- inline --->
@@ -165,7 +165,7 @@ Currently supported preprocessors:
 
 * Sass (scss format only due to node-sass support) - `lang="scss"`
 
-#### Script proprocessor support
+#### Script preprocessor support
 
 EZWC supports writing the script code in Typescript. In order to use the proprocessor (both for inline and imported files), add the `lang` attribute to your script tag with the value of either `ts` or `typescript`.
 
@@ -178,6 +178,26 @@ EZWC supports writing the script code in Typescript. In order to use the proproc
 <!-- imported -->
 <script lang="typescript" src="path/to/script.ts"></script>
 ```
+
+#### Template engine support
+
+EZWC supports some template engines. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your template tag:
+
+```html
+<!-- inline -->
+<template lang="pug">
+  <!-- template code -->
+</template>
+
+<!-- imported -->
+<template lang="pug" src="path/to/template.pug"></template>
+```
+
+Currently supported template engines:
+
+* Lit HTML - `lang="lit"` or `lang="lit-html"`
+
+When using a template engine, the engine import statement will be put at the top of the output component script. Ensure that the consuming application has the appropriate engine added to its `package.json` file and that the build tool chain is capable of supporting the engine.
 
 ## Using the transpiled web component in your code
 
