@@ -2,6 +2,5 @@ sudo: required
 dist: bionic
 language: node_js
 node_js:
-  - "node"
   - "10"
   - "11"
