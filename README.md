@@ -196,7 +196,7 @@ EZWC supports some template engines. In order to use the preprocessor (both for 
 Currently supported template engines:
 
 * Lit HTML - `lang="lit"` or `lang="lit-html"`
-* Pug - `lang-"pug"`
+* Pug - `lang="pug"`
 * Handlebars - `lang="hbs"` or `lang="handlebars"`
 * EJS - `lang="ejs"`
 
