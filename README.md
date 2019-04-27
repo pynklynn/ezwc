@@ -132,10 +132,13 @@ class MyComponent extends HTMLElement {
 ### Example using imports
 
 ```html
-<template src="path/to/template.html"></template>
-<script src="path/to/script.js" selector="my-component"></script>
-<style src="path/to/styles.css"></style>
+<!-- my-component.ezwc -->
+<template src="my-component.ezwc.html"></template>
+<script src="my-component.ezwc.js" selector="my-component"></script>
+<style src="my-component.ezwc.css"></style>
 ```
+
+When using the watch option with imports, name the imported file the exact same as the .ezwc file with the imported file's extension (see example above).
 
 ### .ezwc file notes
 
@@ -196,7 +199,7 @@ EZWC supports some template engines. In order to use the preprocessor (both for 
 Currently supported template engines:
 
 * Lit HTML - `lang="lit"` or `lang="lit-html"`
-* Pug - `lang-"pug"`
+* Pug - `lang="pug"`
 * Handlebars - `lang="hbs"` or `lang="handlebars"`
 * EJS - `lang="ejs"`
 
