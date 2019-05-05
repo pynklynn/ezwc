@@ -67,3 +67,4 @@ test.component.js
 test-components/
 dist
 index.html
+test-generated-components/
