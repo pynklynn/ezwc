@@ -47,7 +47,6 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 ## CLI Options
 
-
 `--in, -i` - (required) Path to input .ezwc file or directory to search for .ezwc files in and it's subdirectories
 
 `--out, -o` - (optional) Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
@@ -56,9 +55,29 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 `--config, -c` - (optional) Path to config file (if not using the standard file and location)
 
-### Config file
+## Generate Command
+
+`generate` or `g` - Generate a new ezwc component
+
+* Selectors will be normalized to kebabcase (ex: HelloWorld becomes hello-world and hello---world becomes hello-world)
+* Selectors should contain a dash in the name after normalization
+* If creating the selector in a sub-directory under the directory, it can be passed as part of the selector name (ex: `ezwc g navigation/nav-link -d src` will create component `nav-link.ezwc` in `src/navigation/`)
+
+### Generate Options
+
+`--styles, -s` - (optional) style preprocessor - will use CSS if not included
+
+`--template, -t` - (optional) template engine - will use HTML if not included
+
+`--ts, -T` - (optional) use Typescript for the script - will use JavaScript if not included
+
+`--dir, -d` - (optional) directory to write the component in
+
+## Config file
 
 If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
+
+Command defaults can be stored in the config file as a child object of the main definition.
 
 Example config file:
 
@@ -66,7 +85,13 @@ Example config file:
 module.exports = {
   in: './path/to/input',
   out: 'dist',
-  watch: true
+  watch: true,
+  generate: {
+    styles: 'scss',
+    template: 'lit',
+    ts: true,
+    dir: 'src'
+  }
 };
 ```
 
