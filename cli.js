@@ -40,6 +40,22 @@ const cli = meow('', {
       type: 'string',
       alias: 'd'
     },
+    importStyles: {
+      type: 'boolean',
+      default: false
+    },
+    importTemplate: {
+      type: 'boolean',
+      default: false
+    },
+    importScript: {
+      type: 'boolean',
+      default: false
+    },
+    importAll: {
+      type: 'boolean',
+      default: false
+    },
   },
   autoHelp: false
 });
