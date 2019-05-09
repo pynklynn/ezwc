@@ -73,6 +73,14 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 `--dir, -d` - (optional) directory to write the component in
 
+`--import-styles` - (optional) create the styles as an import, will use input style type to generate appropriate file
+
+`--import-template` - (optional) create the template as an import, will use input template type to generate appropriate file
+
+`--import-script` - (optional) create the script as an import, will use input script type to generate appropriate file
+
+`--import-all` - (optional) create the all files as an import - overrides the other import flags, will use inputs to generate appropriate files
+
 ## Config file
 
 If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
