@@ -81,6 +81,8 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 `--import-all` - (optional) create the all files as an import - overrides the other import flags, will use inputs to generate appropriate files
 
+`--force, -f` - (optional) overwrite existing files when generating new component files
+
 ## Config file
 
 If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
