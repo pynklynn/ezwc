@@ -18,7 +18,8 @@ const cli = meow('', {
     },
     watch: {
       type: 'boolean',
-      alias: 'w'
+      alias: 'w',
+      default: false
     },
     config: {
       type: 'string',
@@ -34,7 +35,8 @@ const cli = meow('', {
     },
     ts: {
       type: 'boolean',
-      alias: 'T'
+      alias: 'T',
+      default: false
     },
     dir: {
       type: 'string',
@@ -56,6 +58,11 @@ const cli = meow('', {
       type: 'boolean',
       default: false
     },
+    force: {
+      type: 'boolean',
+      default: false,
+      alias: 'f'
+    }
   },
   autoHelp: false
 });
