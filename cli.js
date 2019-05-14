@@ -62,6 +62,10 @@ const cli = meow('', {
       type: 'boolean',
       default: false,
       alias: 'f'
+    },
+    shadowRoot: {
+      type: 'boolean',
+      default: true
     }
   },
   autoHelp: false
