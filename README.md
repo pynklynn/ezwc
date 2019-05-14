@@ -187,6 +187,10 @@ When using the watch option with imports, name the imported file the exact same 
 
 EZWC support some proprocessors for the templates (coming soon), script, and styles.
 
+### Optional Shadow DOM
+
+The shadow root is used by default. If you need to create a web component without it, include the `no-shadow` attribute on the `script` tag in the ezwc file. The generator also has the option `--no-shadow-root` to include the attribute in generated contributes.
+
 #### Style preprocessor support
 
 EZWC supports some style preprocessors. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your style tag:
