@@ -83,6 +83,8 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 `--force, -f` - (optional) overwrite existing files when generating new component files
 
+`--no-shadow-root` - (optional) don't include the shadow DOM
+
 ## Config file
 
 If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
@@ -184,6 +186,10 @@ When using the watch option with imports, name the imported file the exact same 
 ### Prprocessor support
 
 EZWC support some proprocessors for the templates (coming soon), script, and styles.
+
+### Optional Shadow DOM
+
+The shadow root is used by default. If you need to create a web component without it, include the `no-shadow` attribute on the `script` tag in the ezwc file. The generator also has the option `--no-shadow-root` to include the attribute in generated contributes.
 
 #### Style preprocessor support
 

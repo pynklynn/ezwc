@@ -1,6 +1,6 @@
 {
   "name": "ezwc-cli",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "Easily convert web components written similar to Vue single file components into native web components",
   "main": "cli.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "node-sass": "^4.12.0",
     "node-watch": "^0.6.2",
     "pascalcase": "^0.1.1",
-    "prettier": "^1.17.0",
+    "prettier": "^1.17.1",
     "typescript": "^3.4.5"
   },
   "bin": {
