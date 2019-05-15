@@ -202,7 +202,7 @@ EZWC supports some style preprocessors. In order to use the preprocessor (both f
 </style>
 
 <!-- imported -->
-<style lang="scss" src="path/to/styles.css"></style>
+<style lang="scss" src="my-component.ezwc.scss"></style>
 ```
 
 Currently supported preprocessors:
@@ -220,7 +220,7 @@ EZWC supports writing the script code in Typescript. In order to use the proproc
 </script>
 
 <!-- imported -->
-<script lang="typescript" src="path/to/script.ts"></script>
+<script lang="typescript" src="my-component.ezwc.ts"></script>
 ```
 
 #### Template engine support
@@ -234,7 +234,7 @@ EZWC supports some template engines. In order to use the preprocessor (both for 
 </template>
 
 <!-- imported -->
-<template lang="pug" src="path/to/template.pug"></template>
+<template lang="pug" src="my-component.ezwc.pug"></template>
 ```
 
 Currently supported template engines:
