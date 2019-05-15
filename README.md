@@ -257,7 +257,6 @@ Include the output JavaScript file in your code using your build tool chain or d
 ## Future plans
 
 * Style pre-processor support for LESS and Stylus
-* `create` action for the CLI to create a new ezwc file
 
 ## Footnotes
 
