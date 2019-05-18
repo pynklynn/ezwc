@@ -5,6 +5,7 @@ const Logger = require('./lib/utils/logger');
 const Config = require('./lib/utils/config');
 const EzwcCore = require('./lib/ezwc');
 const EzwcGenerate = require('./lib/commands/generate');
+const EzwcNew = require('./lib/commands/new');
 
 const cli = meow('', {
   flags: {
@@ -85,6 +86,14 @@ if (cli.input && cli.input.length) {
         process.exit(1);
       } else {
         EzwcGenerate.process(cli.input[1], cli.flags);
+      }
+      break;
+    case 'new':
+    case 'n':
+      if (cli.flags.help) {
+        Logger.newHelpText();
+      } else {
+        EzwcNew.run();
       }
       break;
   }

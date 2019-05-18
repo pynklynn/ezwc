@@ -5,7 +5,7 @@
 
 Easily convert web components written similar to Vue single file components into native web components.
 
-**_Note: This project is still in the early stages of development so use it with caution. If you find a problem or want to see a feature request not in the list below, please open an issue._**
+**_Note: This project is still in development so use it with caution. If you find a problem or want to see a new feature request not in the issues or future plans list, please open a new issue or pull request._**
 
 ## Getting started
 
@@ -45,206 +45,20 @@ That being said, they may not always be the prettiest to write. [Vue](https://vu
 
 Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your web component comes out!
 
-## CLI Options
+## Features
 
-`--in, -i` - (required) Path to input .ezwc file or directory to search for .ezwc files in and it's subdirectories
+* Syntax similar to Vue's single file components for easy code organization
+* Ability to abstract source code into separate files that are imported
+* Style preprocessors, Typescript, and template engine support
+* Syntactic sugar
+* Watch feature - including imported files!
+* Generate command to easily create a new component - including imported source file stubs
+* New command to generate an EZWC-based project
+* Config file support for easier project development
 
-`--out, -o` - (optional) Path to output .js file - If this isn't supplied, the output will be the same path and filename as the input file with a .js extension. This also takes a path which will generate a file with a generated name in the specified path.
+## Documentation
 
-`--watch, -w` - (optional) Watch for file changes from the input file/directory
-
-`--config, -c` - (optional) Path to config file (if not using the standard file and location)
-
-## Generate Command
-
-`generate` or `g` - Generate a new ezwc component
-
-* Selectors will be normalized to kebabcase (ex: HelloWorld becomes hello-world and hello---world becomes hello-world)
-* Selectors should contain a dash in the name after normalization
-* If creating the selector in a sub-directory under the directory, it can be passed as part of the selector name (ex: `ezwc g navigation/nav-link -d src` will create component `nav-link.ezwc` in `src/navigation/`)
-
-### Generate Options
-
-`--styles, -s` - (optional) style preprocessor - will use CSS if not included
-
-`--template, -t` - (optional) template engine - will use HTML if not included
-
-`--ts, -T` - (optional) use Typescript for the script - will use JavaScript if not included
-
-`--dir, -d` - (optional) directory to write the component in
-
-`--import-styles` - (optional) create the styles as an import, will use input style type to generate appropriate file
-
-`--import-template` - (optional) create the template as an import, will use input template type to generate appropriate file
-
-`--import-script` - (optional) create the script as an import, will use input script type to generate appropriate file
-
-`--import-all` - (optional) create the all files as an import - overrides the other import flags, will use inputs to generate appropriate files
-
-`--force, -f` - (optional) overwrite existing files when generating new component files
-
-`--no-shadow-root` - (optional) don't include the shadow DOM
-
-## Config file
-
-If the `--config` flag is not passed in, the tool will look for the file `.ezwc.config.js` in the directory that the command is being run from. All of the above flags (both long and short form without dashes) except for config are available in the config file. If a flag is present in the config file and passed in at run time, the flag passed in at run time will be used.
-
-Command defaults can be stored in the config file as a child object of the main definition.
-
-Example config file:
-
-```js
-module.exports = {
-  in: './path/to/input',
-  out: 'dist',
-  watch: true,
-  generate: {
-    styles: 'scss',
-    template: 'lit',
-    ts: true,
-    dir: 'src'
-  }
-};
-```
-
-## Example file structures
-
-The code can be either inlined in the file or imported through adding an `src` attribute pointing to the source file. If using the `src` attribute, the imported code will be transpiled into the final `.js` output file. Both ways can be mixed and matched.
-
-Every component must have at least a template tag defining the layout and a script tag defining the code. The style tag is optional.
-
-### Example of inline code
-
-```html
-<template>
-  <h1>I'm an ezwc web component file!</h1>
-  <p>Look at my content!</p>
-  <p>
-    My greeting is:
-    <span class="greeting"></span>
-  </p>
-</template>
-
-<script selector="my-component">
-class MyComponent extends HTMLElement {
-  constructor() {
-    super();
-    this._greeting = this.shadowRoot.querySelector('.greeting');
-  }
-
-  static get observedAttributes() {
-    return [ 'greeting' ];
-  }
-
-  attributeChangedCallback(name, oldValue, newValue) {
-    switch (name) {
-      case 'greeting':
-        this._greeting.innerText = newValue;
-      break;
-    }
-  }
-
-  set greeting(newValue) {
-    this.setAttribute('greeting', newValue);
-  }
-
-  get greeting() {
-    return this.getAttribute('greeting');
-  }
-}
-</script>
-
-<style>
-:host {
-  background-color: #F2F2F2;
-  display: block;
-}
-
-.greeting {
-  font-weight: bold;
-}
-</style>
-```
-
-### Example using imports
-
-```html
-<!-- my-component.ezwc -->
-<template src="my-component.ezwc.html"></template>
-<script src="my-component.ezwc.js" selector="my-component"></script>
-<style src="my-component.ezwc.css"></style>
-```
-
-When using the watch option with imports, name the imported file the exact same as the .ezwc file with the imported file's extension (see example above).
-
-### .ezwc file notes
-
-* The script tag has a required attribute `selector` which defines the selector used when creating the element in the browser (must follow the HTML web component spec naming requirements)
-* The `customElement.define()` code is automatically generated for you - it uses the `selector` attribute mentioned above and parses the classname from the code
-* The JavaScript code should be ES2015+ class format so that the transpiler can determine the class use when generating the `customElement.define()` code.
-
-### Prprocessor support
-
-EZWC support some proprocessors for the templates (coming soon), script, and styles.
-
-### Optional Shadow DOM
-
-The shadow root is used by default. If you need to create a web component without it, include the `no-shadow` attribute on the `script` tag in the ezwc file. The generator also has the option `--no-shadow-root` to include the attribute in generated contributes.
-
-#### Style preprocessor support
-
-EZWC supports some style preprocessors. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your style tag:
-
-```html
-<!-- inline --->
-<style lang="scss">
-  ...
-</style>
-
-<!-- imported -->
-<style lang="scss" src="my-component.ezwc.scss"></style>
-```
-
-Currently supported preprocessors:
-
-* Sass (scss format only due to node-sass support) - `lang="scss"`
-
-#### Script preprocessor support
-
-EZWC supports writing the script code in Typescript. In order to use the proprocessor (both for inline and imported files), add the `lang` attribute to your script tag with the value of either `ts` or `typescript`.
-
-```html
-<!-- inline -->
-<script lang="ts">
-  // TS Code
-</script>
-
-<!-- imported -->
-<script lang="typescript" src="my-component.ezwc.ts"></script>
-```
-
-#### Template engine support
-
-EZWC supports some template engines. In order to use the preprocessor (both for inline and imported files), add the `lang` attribute to your template tag:
-
-```html
-<!-- inline -->
-<template lang="pug">
-  <!-- template code -->
-</template>
-
-<!-- imported -->
-<template lang="pug" src="my-component.ezwc.pug"></template>
-```
-
-Currently supported template engines:
-
-* Lit HTML - `lang="lit"` or `lang="lit-html"`
-* Pug - `lang="pug"`
-* Handlebars - `lang="hbs"` or `lang="handlebars"`
-* EJS - `lang="ejs"`
-
-When using a template engine, the engine import statement will be put at the top of the output component script. Ensure that the consuming application has the appropriate engine added to its `package.json` file and that the build tool chain is capable of supporting the engine.
+Full documentation is available in the [wiki](https://github.com/pynklynn/ezwc/wiki).
 
 ## Using the transpiled web component in your code
 
@@ -256,7 +70,16 @@ Include the output JavaScript file in your code using your build tool chain or d
 
 ## Future plans
 
-* Style pre-processor support for LESS and Stylus
+- Style pre-processor support for LESS and Stylus
+
+## Contributing
+
+Contributions are welcome! When contributing, please ensure that:
+
+- All existing unit tests still run successfully and are updated
+- That new code is covered as thoroughly and accurately as possible
+
+Any issues tagged with `help wanted` are up for grabs for various reasons (usually a lack of my knowledge on something that I know will be useful for others).
 
 ## Contributing
 
@@ -269,4 +92,4 @@ Any issues tagged with `help wanted` are up for grabs for various reasons (usual
 
 ## Footnotes
 
-‡ At the moment (q2 2019) some browsers do still need a polyfill but those browsers are becoming less and less used.
+‡ As of q2 2019, some browsers do still need a polyfill but those browsers are becoming less and less used.
