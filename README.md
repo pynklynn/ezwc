@@ -64,6 +64,10 @@ Essentially, a .ezwc file goes in and a usable ES2015+ .js file containing your 
 
 Full documentation is available in the [wiki](https://github.com/pynklynn/ezwc/wiki).
 
+## Webpack Loader
+
+A webpack loader is available for EZWC. See the [ezwc-loader page](https://github.com/pynklynn/ezwc-loader) for more information.
+
 ## Using the transpiled web component in your code
 
 Include the output JavaScript file in your code using your build tool chain or directly. Then reference your new component just like any other web component (because now it is!):
