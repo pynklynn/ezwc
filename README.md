@@ -3,6 +3,10 @@
 [![Build Status](https://travis-ci.org/pynklynn/ezwc.svg?branch=master)](https://travis-ci.org/pynklynn/ezwc)
 [![NPM Version](https://img.shields.io/npm/v/ezwc-cli.svg)](https://img.shields.io/npm/v/ezwc-cli.svg)
 
+<p align="center">
+  <img src="http://willsteinmetz.net/public/ezwc.svg" width="200">
+</p>
+
 Easily convert web components written similar to Vue single file components into native web components.
 
 **_Note: This project is still in development so use it with caution. If you find a problem or want to see a new feature request not in the issues or future plans list, please open a new issue or pull request._**
