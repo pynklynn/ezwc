@@ -101,3 +101,5 @@ Any issues tagged with `help wanted` are up for grabs for various reasons (usual
 ## Footnotes
 
 ‡ As of q2 2019, some browsers do still need a polyfill but those browsers are becoming less and less used.
+
+(c) 2019 Pynk Lynn LLC
