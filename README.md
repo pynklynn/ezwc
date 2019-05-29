@@ -7,7 +7,7 @@
   <img src="http://willsteinmetz.net/public/ezwc.svg" width="200">
 </p>
 
-Easily convert web components written similar to Vue single file components into native web components.
+EZWC is a CLI tool to easily create web components written in a format similar to Vue single file components that are transpiled to native web components.
 
 **_Note: This project is still in development so use it with caution. If you find a problem or want to see a new feature request not in the issues or future plans list, please open a new issue or pull request._**
 
