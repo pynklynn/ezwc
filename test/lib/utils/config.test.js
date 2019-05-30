@@ -1,4 +1,4 @@
-const Config = require('./config');
+const Config = require('@lib/utils/config');
 const fs = require('fs');
 const path = require('path');
 

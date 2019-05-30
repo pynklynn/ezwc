@@ -1,9 +1,9 @@
-const Importer = require('./importer');
-const Logger = require('./logger');
+const Importer = require('@lib/utils/importer');
+const Logger = require('@lib/utils/logger');
 const fs = require('fs');
 const path = require('path');
 
-jest.mock('./logger');
+jest.mock('@lib/utils/logger');
 jest.mock('fs');
 jest.mock('path');
 

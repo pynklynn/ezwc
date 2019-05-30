@@ -9,8 +9,6 @@
 
 EZWC is a CLI tool to easily create web components written in a format similar to Vue single file components that are transpiled to native web components.
 
-**_Note: This project is still in development so use it with caution. If you find a problem or want to see a new feature request not in the issues or future plans list, please open a new issue or pull request._**
-
 ## Getting started
 
 **Node 10 or higher is required.**

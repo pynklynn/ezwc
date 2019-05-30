@@ -68,3 +68,4 @@ test-components/
 dist
 index.html
 test-generated-components/
+.ezwc.config.js

@@ -1,13 +1,13 @@
-const EzwcScripts = require('./scripts');
-const EzwcTemplates = require('./templates');
-const Logger = require('./utils/logger');
-const Importer = require('./utils/importer');
+const EzwcScripts = require('@lib/scripts');
+const EzwcTemplates = require('@lib/templates');
+const Logger = require('@lib/utils/logger');
+const Importer = require('@lib/utils/importer');
 const ts = require('typescript');
 const prettier = require('prettier');
 
-jest.mock('./utils/logger');
-jest.mock('./templates');
-jest.mock('./utils/importer');
+jest.mock('@lib/utils/logger');
+jest.mock('@lib/templates');
+jest.mock('@lib/utils/importer');
 jest.mock('typescript');
 jest.mock('prettier');
 

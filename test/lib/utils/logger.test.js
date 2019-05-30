@@ -1,4 +1,4 @@
-const Logger = require('./logger');
+const Logger = require('@lib/utils/logger');
 const chalk = require('chalk');
 
 describe('Logger tests', () => {

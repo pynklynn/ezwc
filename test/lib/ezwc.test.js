@@ -1,10 +1,10 @@
-const EzwcCore = require('./ezwc');
-const Logger = require('./utils/logger');
+const EzwcCore = require('@lib/ezwc');
+const Logger = require('@lib/utils/logger');
 const fs = require('fs');
 const glob = require('glob');
 const watch = require('node-watch');
 
-jest.mock('./utils/logger');
+jest.mock('@lib/utils/logger');
 jest.mock('fs');
 jest.mock('glob');
 jest.mock('node-watch');

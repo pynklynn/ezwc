@@ -3,21 +3,21 @@ const path = require('path');
 const dashify = require('dashify');
 const pascalcase = require('pascalcase');
 const prettier = require('prettier');
-const EzwcGenerate = require('./generate');
-const Logger = require('../utils/logger');
-const EzwcScripts = require('../scripts');
-const EzwcStyles = require('../styles');
-const EzwcTemplates = require('../templates');
+const EzwcGenerate = require('@lib/commands/generate');
+const Logger = require('@lib/utils/logger');
+const EzwcScripts = require('@lib/scripts');
+const EzwcStyles = require('@lib/styles');
+const EzwcTemplates = require('@lib/templates');
 
 jest.mock('fs');
 jest.mock('path');
 jest.mock('dashify');
 jest.mock('pascalcase');
 jest.mock('prettier');
-jest.mock('../utils/logger');
-jest.mock('../scripts');
-jest.mock('../styles');
-jest.mock('../templates');
+jest.mock('@lib/utils/logger');
+jest.mock('@lib/scripts');
+jest.mock('@lib/styles');
+jest.mock('@lib/templates');
 
 describe('generate command tests', () => {
   beforeEach(() => {

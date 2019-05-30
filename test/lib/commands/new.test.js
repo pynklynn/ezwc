@@ -1,13 +1,13 @@
-const Logger = require('../utils/logger');
+const Logger = require('@lib/utils/logger');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 const createPackageJson = require('create-package-json');
 const prettier = require('prettier');
-const EzwcNew = require('./new');
+const EzwcNew = require('@lib/commands/new');
 const Handlebars = require('handlebars');
 
-jest.mock('../utils/logger');
+jest.mock('@lib/utils/logger');
 jest.mock('inquirer');
 jest.mock('fs');
 jest.mock('path');
@@ -424,7 +424,7 @@ importScript: true
 
     await EzwcNew.generateProjectFiles(answers);
     expect(path.resolve).toHaveBeenCalledWith('cwd', 'project');
-    expect(path.resolve).toHaveBeenCalledWith(__dirname, 'new/templates');
+    expect(path.resolve).toHaveBeenCalledWith(__dirname.replace('/test', ''), 'new/templates');
     expect(Logger.info).toHaveBeenCalledWith('Generating %s source files to the project directory', 'project');
     expect(EzwcNew.copyBasicFiles).toHaveBeenCalledWith(answers, commandDir, projectDir);
     expect(EzwcNew.generateStylesheet).toHaveBeenCalledWith(projectDir, answers);

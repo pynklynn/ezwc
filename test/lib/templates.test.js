@@ -1,9 +1,9 @@
-const EzwcTemplates = require('./templates');
-const Logger = require('./utils/logger');
-const Importer = require('./utils/importer');
+const EzwcTemplates = require('@lib/templates');
+const Logger = require('@lib/utils/logger');
+const Importer = require('@lib/utils/importer');
 
-jest.mock('./utils/logger');
-jest.mock('./utils/importer');
+jest.mock('@lib/utils/logger');
+jest.mock('@lib/utils/importer');
 
 describe('template processing tests', () => {
   describe('parseTemplate', () => {

@@ -1,11 +1,11 @@
-const EzwcStyles = require('./styles');
-const Logger = require('./utils/logger');
-const Importer = require('./utils/importer');
+const EzwcStyles = require('@lib/styles');
+const Logger = require('@lib/utils/logger');
+const Importer = require('@lib/utils/importer');
 const sass = require('node-sass');
 const path = require('path');
 
-jest.mock('./utils/logger');
-jest.mock('./utils/importer');
+jest.mock('@lib/utils/logger');
+jest.mock('@lib/utils/importer');
 jest.mock('node-sass');
 jest.mock('path');
 
