@@ -174,7 +174,7 @@ RENDER
       const definitionString = EzwcScripts.createDefinition('', mockDom);
 
       expect(EzwcScripts.parseClassName).toHaveBeenCalled();
-      expect(definitionString).toBe(`\n\ncustomElements.define('test-component', TestComponent);`)
+      expect(definitionString).toBe(`\n\nwindow.customElements.define('test-component', TestComponent);`)
     });
   });
 
