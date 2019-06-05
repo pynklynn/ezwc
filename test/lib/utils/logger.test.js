@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright (c) 2019 Pynk Lynn, LLC
+ * This code may only be used under the MIT style license found at
+ * https://github.com/pynklynn/ezwc/blob/master/LICENSE
+ */
+
 const Logger = require('@lib/utils/logger');
 const chalk = require('chalk');
 
