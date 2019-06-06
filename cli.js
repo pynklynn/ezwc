@@ -1,5 +1,12 @@
 #!/usr/bin/env node
 
+/**
+ * @license
+ * Copyright (c) 2019 Pynk Lynn, LLC
+ * This code may only be used under the MIT style license found at
+ * https://github.com/pynklynn/ezwc/blob/master/LICENSE
+ */
+
 const meow = require('meow');
 const Logger = require('./lib/utils/logger');
 const Config = require('./lib/utils/config');
@@ -108,7 +115,5 @@ if (cli.input && cli.input.length) {
     process.exit(1);
   }
 
-  const inFilePath = cli.flags.in;
-
-  EzwcCore.process(inFilePath, cli.flags.out, cli.flags.watch);
+  EzwcCore.process(cli.flags.in, cli.flags.out, cli.flags.watch);
 }

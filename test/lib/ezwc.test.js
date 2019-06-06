@@ -8,6 +8,7 @@
 const EzwcCore = require('@lib/ezwc');
 const Logger = require('@lib/utils/logger');
 const fs = require('fs');
+const path = require('path');
 const glob = require('glob');
 const watch = require('node-watch');
 
@@ -28,8 +29,8 @@ describe('core tests', () => {
     });
 
     test('should use the given path when a file is designated for output', () => {
-      const outputFile = EzwcCore.determineOutfile('input-test-file.ezwc', 'output-test-file.js');
-      expect(outputFile).toBe('output-test-file.js');
+      const outputFile = EzwcCore.determineOutfile('path/to/input-test-file.ezwc', 'path/to/input-test-file.ezwc', 'dist');
+      expect(outputFile).toBe(path.resolve(process.cwd(), 'dist', 'path/to/input-test-file.js'));
     });
 
     test('should generate output file path when given a directory', () => {
@@ -42,8 +43,8 @@ describe('core tests', () => {
         }
       });
 
-      const outputFile = EzwcCore.determineOutfile('path/to/test-file.ezwc', 'dist');
-      expect(outputFile).toBe('dist/path/to/test-file.js');
+      const outputFile = EzwcCore.determineOutfile('path/to/test-file.ezwc', 'path/', 'dist');
+      expect(outputFile).toBe(path.resolve(process.cwd(), 'dist/to/test-file.js'));
     });
   });
 
@@ -91,7 +92,7 @@ describe('core tests', () => {
       expect(Logger.app).toHaveBeenCalledWith(`Starting up processing for input %s`, 'test');
       expect(Logger.emptyLine).toHaveBeenCalled();
       expect(EzwcCore.determineInputFileList).toHaveBeenCalled()
-      expect(EzwcCore.processFile).toHaveBeenCalledWith('fileOne', 'test2');
+      expect(EzwcCore.processFile).toHaveBeenCalledWith('fileOne', 'test', 'test2');
       expect(Logger.app).toHaveBeenCalledWith(`Finished processing %s!`, 'ezwc');
     });
 
@@ -102,11 +103,11 @@ describe('core tests', () => {
       expect(Logger.app).toHaveBeenCalledWith(`Starting up processing for input %s`, 'test');
       expect(Logger.emptyLine).toHaveBeenCalled();
       expect(EzwcCore.determineInputFileList).toHaveBeenCalled()
-      expect(EzwcCore.processFile).toHaveBeenCalledWith('fileOne', 'test2');
+      expect(EzwcCore.processFile).toHaveBeenCalledWith('fileOne', 'test', 'test2');
       expect(Logger.app).toHaveBeenCalledWith(`Finished processing existing %s files. Watching for changes...`, 'ezwc');
       expect(watch).toHaveBeenCalled();
       expect(Logger.app).toHaveBeenCalledWith('Changes found for %s', 'testWatch');
-      expect(EzwcCore.processFile).toHaveBeenCalledWith('testWatch', 'test2');
+      expect(EzwcCore.processFile).toHaveBeenCalledWith('testWatch', 'test', 'test2');
     });
   });
 
