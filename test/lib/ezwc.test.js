@@ -24,8 +24,13 @@ describe('core tests', () => {
 
   describe('determine output file', () => {
     test('should use the input file to determine output path when none is defined', () => {
-      const outputFile = EzwcCore.determineOutfile('path/to/test-file.ezwc');
+      const outputFile = EzwcCore.determineOutfile('path/to/test-file.ezwc', '', '');
       expect(outputFile).toBe('path/to/test-file.js');
+    });
+
+    test('should respect outFile when outFile is a file path', () => {
+      const outputFile = EzwcCore.determineOutfile('path/to/in-file.ezwc', 'path/to', 'path/to/out-file.js');
+      expect(outputFile).toBe('path/to/out-file.js');
     });
 
     test('should use the given path when a file is designated for output', () => {
