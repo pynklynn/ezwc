@@ -77,13 +77,14 @@ Include the output JavaScript file in your code using your build tool chain or d
 ## Future plans
 
 - Style pre-processor support for LESS and Stylus
+- API support to be useful programtically
 
 ## Contributing
 
 Contributions are welcome! When contributing, please ensure that:
 
-- All existing unit tests still run successfully and are updated
-- That new code is covered as thoroughly and accurately as possible
+- all existing unit tests still run successfully and are updated
+- new code is covered as thoroughly and accurately as possible
 
 Any issues tagged with `help wanted` are up for grabs for various reasons (usually a lack of my knowledge on something that I know will be useful for others).
 
@@ -98,6 +99,6 @@ Any issues tagged with `help wanted` are up for grabs for various reasons (usual
 
 ## Footnotes
 
-‡ As of q2 2019, some browsers do still need a polyfill but those browsers are becoming less and less used.
+‡ As of q2 2019, some browsers do still need a polyfill but those browsers are becoming less and less frequently used.
 
 (c) 2019 Pynk Lynn LLC
