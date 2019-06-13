@@ -114,6 +114,17 @@ describe('core tests', () => {
       expect(Logger.app).toHaveBeenCalledWith('Changes found for %s', 'testWatch');
       expect(EzwcCore.processFile).toHaveBeenCalledWith('testWatch', 'test', 'test2');
     });
+
+    test('should process input files and return it as a string', () => {
+      jest.spyOn(EzwcCore, 'processFile').mockReturnValue('TEST');
+      const output = EzwcCore.process('test', 'test2', false, false, false);
+      expect(Logger.app).toHaveBeenCalledWith(`Starting up processing for input %s`, 'test');
+      expect(Logger.emptyLine).toHaveBeenCalled();
+      expect(EzwcCore.determineInputFileList).toHaveBeenCalled()
+      expect(EzwcCore.processFile).toHaveBeenCalledWith('fileOne', 'test', 'test2', false);
+      expect(Logger.app).toHaveBeenCalledWith(`Finished processing %s!`, 'ezwc');
+      expect(output).toBe('TEST');
+    });
   });
 
   describe('write output', () => {
