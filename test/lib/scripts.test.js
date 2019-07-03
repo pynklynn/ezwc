@@ -137,9 +137,9 @@ super();`
       EzwcTemplates.createRenderFunctionContent.mockReturnValue('\nRENDER');
       const renderContent = EzwcScripts.updateRenderContent('render(data) {\nEXISTING\n}');
       expect(renderContent).toBe(`render(data) {
-RENDER
 EXISTING
-}`
+
+RENDER}`
       );
     });
 
