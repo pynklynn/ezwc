@@ -69,7 +69,7 @@ TEST
       const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'lit', shadowRoot: true });
       expect(createRenderFunctionContent).toBe(`
           const template = html\`TEST\`;
-          render(template(this), this.shadowRoot);
+          render(template, this.shadowRoot);
 `
       );
     });
@@ -78,7 +78,7 @@ TEST
       const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'lit-html', shadowRoot: true });
       expect(createRenderFunctionContent).toBe(`
           const template = html\`TEST\`;
-          render(template(this), this.shadowRoot);
+          render(template, this.shadowRoot);
 `
       );
     });
