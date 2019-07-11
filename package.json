@@ -1,6 +1,6 @@
 {
   "name": "ezwc-cli",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Easily convert web components written similar to Vue single file components into native web components",
   "main": "cli.js",
   "files": [
@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/pynklynn/ezwc#readme",
   "devDependencies": {
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.1",
     "jest": "^24.8.0"
   },
   "dependencies": {
@@ -35,13 +35,13 @@
     "create-package-json": "0.0.8",
     "dashify": "^2.0.0",
     "handlebars": "^4.1.2",
-    "inquirer": "^6.3.1",
+    "inquirer": "^6.4.1",
     "meow": "^5.0.0",
     "node-sass": "^4.12.0",
     "node-watch": "^0.6.2",
     "pascalcase": "^0.1.1",
     "prettier": "^1.18.2",
-    "typescript": "^3.5.1"
+    "typescript": "^3.5.3"
   },
   "bin": {
     "ezwc": "./cli.js"
