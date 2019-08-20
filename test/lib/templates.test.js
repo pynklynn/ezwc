@@ -15,6 +15,7 @@ jest.mock('@lib/utils/importer');
 describe('template processing tests', () => {
   describe('parseTemplate', () => {
     test('should output an error message when there is no template', () => {
+      global.Parser = {};
       jest.spyOn(process, 'exit').mockImplementation(() => {});
 
       EzwcTemplates.parseTemplate(false, '');
@@ -25,15 +26,30 @@ describe('template processing tests', () => {
     });
 
     test('should output a template string', () => {
-      const mockDom = {
-        attr() {
-          return 'importFile';
-        }
+      global.Parser = {
+        templateCode: '<template></template>',
+        templateContent: 'TEST'
       };
-      Importer.resolveImport.mockReturnValue('TEST');
 
-      const templateString = EzwcTemplates.parseTemplate(mockDom, 'STYLES');
+      const templateString = EzwcTemplates.parseTemplate('STYLES');
 
+      expect(Logger.info).toHaveBeenCalled();
+      expect(templateString).toBe(`
+STYLES
+TEST
+    `);
+    });
+
+    test('should output a template string for an import', () => {
+      global.Parser = {
+        templateCode: '<template></template>',
+        templateSrc: 'path/to/file.html'
+      };
+      jest.spyOn(Importer, 'importFile').mockReturnValue('TEST');
+
+      const templateString = EzwcTemplates.parseTemplate('STYLES', 'inFile');
+
+      expect(Importer.importFile).toHaveBeenCalledWith('inFile', 'path/to/file.html');
       expect(Logger.info).toHaveBeenCalled();
       expect(templateString).toBe(`
 STYLES
@@ -43,8 +59,26 @@ TEST
   });
 
   describe('create render function', () => {
+    test('should create the render function for default', () => {
+      global.Parser = {
+        useShadow: true
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
+      expect(createRenderFunctionContent).toBe(`
+          const template = \`TEST\`;
+          const templateNode = new DOMParser().parseFromString(template, 'text/html').firstChild;
+          this.shadowRoot.innerHTML = '';
+          this.shadowRoot.appendChild(templateNode.cloneNode(true));
+`
+      );
+    });
+
     test('should create the render function for html', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'html'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           const template = \`TEST\`;
           const templateNode = new DOMParser().parseFromString(template, 'text/html').firstChild;
@@ -55,7 +89,10 @@ TEST
     });
 
     test('should create the render function for html with no-shadow', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { shadowRoot: false });
+      global.Parser = {
+        useShadow: false
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           const template = \`TEST\`;
           const templateNode = new DOMParser().parseFromString(template, 'text/html').firstChild;
@@ -66,7 +103,11 @@ TEST
     });
 
     test('should create the render function for lit', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'lit', shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'lit'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           const template = html\`TEST\`;
           render(template, this.shadowRoot);
@@ -75,7 +116,11 @@ TEST
     });
 
     test('should create the render function for lit-html', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'lit-html', shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'lit-html'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           const template = html\`TEST\`;
           render(template, this.shadowRoot);
@@ -84,7 +129,11 @@ TEST
     });
 
     test('should create the render function for hbs', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'hbs', shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'hbs'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           if (!this.compiledTemplate) {
             this.compiledTemplate = Handlebars.compile(\`TEST\`);
@@ -95,7 +144,11 @@ TEST
     });
 
     test('should create the render function for handlebars', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'handlebars', shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'handlebars'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           if (!this.compiledTemplate) {
             this.compiledTemplate = Handlebars.compile(\`TEST\`);
@@ -106,7 +159,11 @@ TEST
     });
 
     test('should create the render function for ejs', () => {
-      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST', { template: 'ejs', shadowRoot: true });
+      global.Parser = {
+        useShadow: true,
+        templateLang: 'ejs'
+      };
+      const createRenderFunctionContent = EzwcTemplates.createRenderFunctionContent('TEST');
       expect(createRenderFunctionContent).toBe(`
           const template = \`TEST\`;
           this.shadowRoot.innerHTML = ejs.render(template, data);
@@ -117,35 +174,53 @@ TEST
 
   describe('create import line', () => {
     test('should create the import line for html', () => {
+      global.Parser = {
+        templateLang: 'html'
+      };
       const createImportLine = EzwcTemplates.createImport();
       expect(createImportLine).toBe('');
     });
 
     test('should create the import line for lit', () => {
+      global.Parser = {
+        templateLang: 'lit'
+      };
       const createImportLine = EzwcTemplates.createImport('lit');
       expect(createImportLine).toBe(`import { html, render } from 'lit-html';\n\n`);
       expect(Logger.warn).toHaveBeenCalled();
     });
 
     test('should create the import line for lit-html', () => {
+      global.Parser = {
+        templateLang: 'lit-html'
+      };
       const createImportLine = EzwcTemplates.createImport('lit-html');
       expect(createImportLine).toBe(`import { html, render } from 'lit-html';\n\n`);
       expect(Logger.warn).toHaveBeenCalled();
     });
 
     test('should create the import line for hbs', () => {
+      global.Parser = {
+        templateLang: 'hbs'
+      };
       const createImportLine = EzwcTemplates.createImport('hbs');
       expect(createImportLine).toBe(`import Handlebars from 'handlebars/dist/handlebars';\n\n`);
       expect(Logger.warn).toHaveBeenCalled();
     });
 
     test('should create the import line for handlebars', () => {
+      global.Parser = {
+        templateLang: 'handlebars'
+      };
       const createImportLine = EzwcTemplates.createImport('handlebars');
       expect(createImportLine).toBe(`import Handlebars from 'handlebars/dist/handlebars';\n\n`);
       expect(Logger.warn).toHaveBeenCalled();
     });
 
     test('should create the import line for ejs', () => {
+      global.Parser = {
+        templateLang: 'ejs'
+      };
       const createImportLine = EzwcTemplates.createImport('ejs');
       expect(createImportLine).toBe(`import ejs from 'ejs/ejs';\n\n`);
       expect(Logger.warn).toHaveBeenCalled();

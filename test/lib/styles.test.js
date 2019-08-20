@@ -23,19 +23,20 @@ describe('styles processing tests', () => {
 
   describe('parse styles', () => {
     test('should return an empty string', () => {
-      const styles = EzwcStyles.parseStyles(null);
+      global.Parser = {
+        styleCode: ''
+      };
+      const styles = EzwcStyles.parseStyles();
       expect(styles).toBe('');
       expect(Logger.info).toHaveBeenCalled();
     });
 
     test('should return a default styles string', () => {
-      const mockDom = {
-        attr() {
-          return 'importFile';
-        }
+      global.Parser = {
+        styleCode: '<style></style>',
+        styleContent: 'TEST'
       };
-      Importer.resolveImport.mockReturnValue('TEST');
-      const styles = EzwcStyles.parseStyles(mockDom);
+      const styles = EzwcStyles.parseStyles();
       expect(styles).toBe(`
 <style>
   TEST
@@ -44,19 +45,30 @@ describe('styles processing tests', () => {
       expect(Logger.info).toHaveBeenCalled();
     });
 
+    test('should return a default styles string for imported styles', () => {
+      global.Parser = {
+        styleCode: '<style></style>',
+        styleSrc: 'path/to/file.css'
+      };
+      jest.spyOn(Importer, 'importFile').mockReturnValue('TEST');
+      const styles = EzwcStyles.parseStyles('inFile');
+      expect(styles).toBe(`
+<style>
+  TEST
+</style>
+      `);
+      expect(Importer.importFile).toHaveBeenCalledWith('inFile', 'path/to/file.css');
+      expect(Logger.info).toHaveBeenCalled();
+    });
+
     test('should return a styles string for sass', () => {
-      const mockDom = {
-        attr(attr) {
-          if (attr === 'src') {
-            return 'importFile';
-          } else {
-            return 'scss';
-          }
-        }
+      global.Parser = {
+        styleCode: '<style></style>',
+        styleContent: 'TEST',
+        styleLang: 'scss'
       };
       jest.spyOn(EzwcStyles, 'processSass').mockReturnValue('TEST');
-      Importer.resolveImport.mockReturnValue('SASS');
-      const styles = EzwcStyles.parseStyles(mockDom);
+      const styles = EzwcStyles.parseStyles();
       expect(styles).toBe(`
 <style>
   TEST

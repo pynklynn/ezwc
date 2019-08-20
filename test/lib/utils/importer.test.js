@@ -40,25 +40,4 @@ describe('importer tests', () => {
       expect(fs.readFileSync).toThrow(Error);
     });
   });
-
-  describe('resolve import', () => {
-    test('should import a file', () => {
-      jest.spyOn(Importer, 'importFile');
-      Importer.resolveImport('in-file', 'import-file');
-      expect(Importer.importFile).toHaveBeenCalledWith('in-file', 'import-file');
-    });
-
-    test('should parse the content of the tag', () => {
-      const trimMock = jest.fn();
-      const mockDom = {
-        html() {
-          return {
-            trim: trimMock
-          };
-        }
-      };
-      Importer.resolveImport(false, false, mockDom);
-      expect(trimMock).toHaveBeenCalled();
-    });
-  });
 });
