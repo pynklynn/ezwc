@@ -29,6 +29,9 @@ describe('script processing tests', () => {
 
   describe('parse script', () => {
     test('should return an error when there is no script tag', () => {
+      global.Parser = {
+        scriptContent: undefined
+      };
       EzwcScripts.parseScript(null);
 
       expect(Logger.info).toHaveBeenCalled();
@@ -37,17 +40,17 @@ describe('script processing tests', () => {
     });
 
     test('should return the script', () => {
-      const mockDom = {
-        attr: jest.fn()
+      global.Parser = {
+        scriptContent: 'SCRIPT',
+        scriptCode: '<script></script>'
       };
-      Importer.resolveImport.mockReturnValue('SCRIPT');
       jest.spyOn(EzwcScripts, 'updateConstructorContent');
       jest.spyOn(EzwcScripts, 'createDefinition').mockReturnValue('SCRIPT');
       EzwcTemplates.createImport.mockReturnValue('HTML');
       jest.spyOn(EzwcScripts, 'injectRenderCall').mockReturnValue('RENDER')
       jest.spyOn(EzwcScripts, 'updateRenderContent').mockReturnValue('RENDER');
       prettier.format.mockReturnValue('PRETTY');
-      const script = EzwcScripts.parseScript(mockDom, 'TEMPLATE', { template: 'html' });
+      const script = EzwcScripts.parseScript('TEMPLATE');
 
       expect(script).toBe('HTMLRENDERSCRIPT');
       expect(prettier.format).toHaveBeenCalledWith('SCRIPT', {
@@ -56,59 +59,77 @@ describe('script processing tests', () => {
         parser: 'babel'
       });
       expect(EzwcScripts.injectRenderCall).toHaveBeenCalledWith('PRETTY');
-      expect(EzwcTemplates.createImport).toHaveBeenCalledWith('html');
+      expect(EzwcTemplates.createImport).toHaveBeenCalledWith();
+      expect(EzwcScripts.updateConstructorContent).toHaveBeenCalled();
+      expect(EzwcScripts.updateRenderContent).toHaveBeenCalled();
+      expect(EzwcScripts.createDefinition).toHaveBeenCalled();
+    });
+
+    test('should return the script for an imported file', () => {
+      global.Parser = {
+        scriptSrc: 'path/to/file.js',
+        scriptCode: '<script></script>'
+      };
+      jest.spyOn(Importer, 'importFile').mockReturnValue('SCRIPT');
+      jest.spyOn(EzwcScripts, 'updateConstructorContent');
+      jest.spyOn(EzwcScripts, 'createDefinition').mockReturnValue('SCRIPT');
+      EzwcTemplates.createImport.mockReturnValue('HTML');
+      jest.spyOn(EzwcScripts, 'injectRenderCall').mockReturnValue('RENDER')
+      jest.spyOn(EzwcScripts, 'updateRenderContent').mockReturnValue('RENDER');
+      prettier.format.mockReturnValue('PRETTY');
+      const script = EzwcScripts.parseScript('TEMPLATE', 'INFILE');
+
+      expect(script).toBe('HTMLRENDERSCRIPT');
+      expect(Importer.importFile).toHaveBeenCalledWith('INFILE', 'path/to/file.js');
+      expect(prettier.format).toHaveBeenCalledWith('SCRIPT', {
+        singleQuote: true,
+        trailingComma: 'es5',
+        parser: 'babel'
+      });
+      expect(EzwcScripts.injectRenderCall).toHaveBeenCalledWith('PRETTY');
+      expect(EzwcTemplates.createImport).toHaveBeenCalledWith();
       expect(EzwcScripts.updateConstructorContent).toHaveBeenCalled();
       expect(EzwcScripts.updateRenderContent).toHaveBeenCalled();
       expect(EzwcScripts.createDefinition).toHaveBeenCalled();
     });
 
     test('should return a script string for ts', () => {
-      const mockDom = {
-        attr(attr) {
-          if (attr === 'src') {
-            return 'importFile';
-          } else {
-            return 'ts';
-          }
-        }
+      global.Parser = {
+        scriptLang: 'ts',
+        scriptContent: 'SCRIPT',
+        scriptCode: '<script></script>'
       };
       jest.spyOn(EzwcScripts, 'processTs').mockReturnValue('TEST');
-      Importer.resolveImport.mockReturnValue('TS');
       jest.spyOn(EzwcScripts, 'updateConstructorContent');
       jest.spyOn(EzwcScripts, 'createDefinition').mockReturnValue('SCRIPT');
       EzwcTemplates.createImport.mockReturnValue('HTML');
       jest.spyOn(EzwcScripts, 'updateRenderContent').mockReturnValue('RENDER');
-      const script = EzwcScripts.parseScript(mockDom, 'TEMPLATE', { template: 'html' });
+      const script = EzwcScripts.parseScript('TEMPLATE');
       expect(script).toBe('HTMLRENDERSCRIPT');
       expect(Logger.info).toHaveBeenCalled();
       expect(EzwcScripts.processTs).toHaveBeenCalled();
-      expect(EzwcTemplates.createImport).toHaveBeenCalledWith('html');
+      expect(EzwcTemplates.createImport).toHaveBeenCalledWith();
       expect(EzwcScripts.updateConstructorContent).toHaveBeenCalled();
       expect(EzwcScripts.updateRenderContent).toHaveBeenCalled();
       expect(EzwcScripts.createDefinition).toHaveBeenCalled();
     });
 
     test('should return a script string for typescript', () => {
-      const mockDom = {
-        attr(attr) {
-          if (attr === 'src') {
-            return 'importFile';
-          } else {
-            return 'typescript';
-          }
-        }
+      global.Parser = {
+        scriptLang: 'typescript',
+        scriptContent: 'SCRIPT',
+        scriptCode: '<script></script>'
       };
       jest.spyOn(EzwcScripts, 'processTs').mockReturnValue('TEST');
-      Importer.resolveImport.mockReturnValue('TS');
       jest.spyOn(EzwcScripts, 'updateConstructorContent');
       jest.spyOn(EzwcScripts, 'createDefinition').mockReturnValue('SCRIPT');
       jest.spyOn(EzwcScripts, 'updateRenderContent').mockReturnValue('RENDER');
       EzwcTemplates.createImport.mockReturnValue('HTML');
-      const script = EzwcScripts.parseScript(mockDom, 'TEMPLATE', { template: 'html' });
+      const script = EzwcScripts.parseScript('TEMPLATE');
       expect(script).toBe('HTMLRENDERSCRIPT');
       expect(Logger.info).toHaveBeenCalled();
       expect(EzwcScripts.processTs).toHaveBeenCalled();
-      expect(EzwcTemplates.createImport).toHaveBeenCalledWith('html');
+      expect(EzwcTemplates.createImport).toHaveBeenCalledWith();
       expect(EzwcScripts.updateConstructorContent).toHaveBeenCalled();
       expect(EzwcScripts.updateRenderContent).toHaveBeenCalled();
       expect(EzwcScripts.createDefinition).toHaveBeenCalled();
@@ -117,7 +138,10 @@ describe('script processing tests', () => {
 
   describe('update constructor content', () => {
     test('should update the constructor content with shadow dom', () => {
-      const shadowDom = EzwcScripts.updateConstructorContent('\nsuper();', { shadowRoot: true });
+      global.Parser = {
+        useShadow: true
+      };
+      const shadowDom = EzwcScripts.updateConstructorContent('\nsuper();');
       expect(shadowDom).toBe(`
 super();
 this.attachShadow({ mode: 'open' });`
@@ -125,7 +149,10 @@ this.attachShadow({ mode: 'open' });`
     });
 
     test('should update the constructor content without shadow dom', () => {
-      const shadowDom = EzwcScripts.updateConstructorContent('\nsuper();', { shadowRoot: false });
+      global.Parser = {
+        useShadow: false
+      };
+      const shadowDom = EzwcScripts.updateConstructorContent('\nsuper();');
       expect(shadowDom).toBe(`
 super();`
       );
@@ -172,13 +199,11 @@ RENDER
 
     test('should return the create element part of the script', () => {
       jest.spyOn(EzwcScripts, 'parseClassName').mockReturnValue('TestComponent');
-      const mockDom = {
-        attr() {
-          return 'test-component';
-        }
+      global.Parser = {
+        componentSelector: 'test-component'
       };
 
-      const definitionString = EzwcScripts.createDefinition('', mockDom);
+      const definitionString = EzwcScripts.createDefinition('');
 
       expect(EzwcScripts.parseClassName).toHaveBeenCalled();
       expect(definitionString).toBe(`\n\nwindow.customElements.define('test-component', TestComponent);`)
