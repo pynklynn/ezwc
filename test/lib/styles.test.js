@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (c) 2019 Pynk Lynn, LLC
+ * Copyright (c) 2021 Pynk Lynn, LLC
  * This code may only be used under the MIT style license found at
  * https://github.com/pynklynn/ezwc/blob/master/LICENSE
  */
@@ -8,12 +8,12 @@
 const EzwcStyles = require('@lib/styles');
 const Logger = require('@lib/utils/logger');
 const Importer = require('@lib/utils/importer');
-const sass = require('node-sass');
+const sass = require('sass');
 const path = require('path');
 
 jest.mock('@lib/utils/logger');
 jest.mock('@lib/utils/importer');
-jest.mock('node-sass');
+jest.mock('sass');
 jest.mock('path');
 
 describe('styles processing tests', () => {
